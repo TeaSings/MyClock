@@ -6,11 +6,11 @@ module clock_core (
     input [3:0] set_low,
     input [3:0] set_high,
     output [6:0] seg_sec_low,
-    output [6:0] seg_sec_high,
-    output [6:0] seg_min_low,
-    output [6:0] seg_min_high,
-    output [6:0] seg_hour_low,
-    output [6:0] seg_hour_high
+    output [3:0] bcd_sec_high,
+    output [3:0] bcd_min_low,
+    output [3:0] bcd_min_high,
+    output [3:0] bcd_hour_low,
+    output [3:0] bcd_hour_high
 );
     wire [3:0] sec_low;
     wire [3:0] sec_high;
@@ -62,28 +62,9 @@ module clock_core (
         .light(seg_sec_low)
     );
 
-    bcd_to_7_seg u_seg_sec_high (
-        .led(sec_high),
-        .light(seg_sec_high)
-    );
-
-    bcd_to_7_seg u_seg_min_low (
-        .led(min_low),
-        .light(seg_min_low)
-    );
-
-    bcd_to_7_seg u_seg_min_high (
-        .led(min_high),
-        .light(seg_min_high)
-    );
-    
-    bcd_to_7_seg u_seg_hour_low (
-        .led(hour_low),
-        .light(seg_hour_low)
-    );
-
-    bcd_to_7_seg u_seg_hour_high (
-        .led(hour_high),
-        .light(seg_hour_high)
-    );
+    assign bcd_sec_high = sec_high;
+    assign bcd_min_low = min_low;
+    assign bcd_min_high = min_high;
+    assign bcd_hour_low = hour_low;
+    assign bcd_hour_high = hour_high;
 endmodule
